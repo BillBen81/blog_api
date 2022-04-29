@@ -6,6 +6,7 @@ use App\Repository\AuthorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
 class Author
@@ -22,6 +23,7 @@ class Author
     private $biography;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Article::class)]
+    //#[Ignore]
     private $articles;
 
     public function __construct()

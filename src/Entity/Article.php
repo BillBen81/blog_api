@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 //#[Serializer\ExclusionPolicy("ALL")]
@@ -13,7 +14,7 @@ class Article
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Serializer\Groups(array('details'))]
+    #[Serializer\Groups(array('list'))]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -28,7 +29,9 @@ class Article
 
     #[ORM\ManyToOne(targetEntity: Author::class)]
     #[ORM\JoinColumn(nullable: true)]
+    //#[Ignore]
     private $author;
+
 
     public function getId(): ?int
     {
@@ -70,4 +73,5 @@ class Article
 
         return $this;
     }
+
 }

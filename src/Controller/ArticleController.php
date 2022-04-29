@@ -28,8 +28,11 @@ class ArticleController extends AbstractController
     */
     
     #[Route('/{id}', name: 'app_article_show')]
-    public function showArticle(Article $article, SerializerInterface $serializer): Response
+    #[ParamConverter('get', class: 'SensioBlogBundle')]
+    public function showArticle(SerializerInterface $serializer, Request $request, ArticleRepository $articleRepository): Response
     {
+        $id = $request->get('id');
+        $article = $articleRepository->find($id);
         $data = $serializer->serialize($article, JsonEncoder::FORMAT);
         $response = new Response($data);
         $response->headers->set('Content-Type','application/json');
